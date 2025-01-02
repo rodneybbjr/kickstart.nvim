@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -643,6 +643,46 @@ require('lazy').setup({
             },
           },
         },
+
+        pylsp = {
+          plugins = {
+            pycodestyle = { enabled = false },
+            pyflakes = { enabled = false },
+            pyls_memestra = { enabled = true },
+            mccabe = { enabled = false },
+            rope = { enabled = true },
+            pylsp_mypy = {
+              enabled = false,
+              live_mode = true,
+              dmypy = false,
+              report_progress = true,
+            },
+            jedi_symbols = { enabled = true },
+            jedi_hover = { enabled = true },
+            jedi_references = { enabled = true },
+            jedi_signature_help = { enabled = true },
+            jedi_definition = { enabled = true },
+            jedi_completion = { enabled = true },
+            ruff = {
+              enabled = true,
+              formatEnabled = true,
+              extendSelect = { 'I' },
+              extendIgnore = { 'C90' },
+              format = { 'I' },
+              severities = {
+                D212 = { 'I' },
+              },
+              unsageGixes = false,
+              lineLength = 88,
+              exclude = { '__about__.py' },
+              select = { 'F' },
+              ignore = { 'D210' },
+              perFileIgnores = {},
+              preview = false,
+              targetVersion = { 'py310' },
+            },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -658,6 +698,9 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'markdownlint',
+        'ruff',
+        'pylsp',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -710,6 +753,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        python = { 'ruff' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -899,7 +943,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'go', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -928,18 +972,18 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
