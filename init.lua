@@ -726,7 +726,7 @@ require('lazy').setup({
               ignore = { 'D210' },
               perFileIgnores = {},
               preview = false,
-              targetVersion = { 'py310' },
+              targetVersion = {},
             },
           },
         },
