@@ -4,12 +4,13 @@
 -- See the kickstart.nvim README for more information
 -- local job_id = 0
 
+  -- vim.g.termguicolors = true
 return {
-  -- vim.opt_local.shiftwidth = 2
+  vim.api.nvim_set_option_value('shiftwidth', 2, { scope = 'local' }),
+  vim.api.nvim_set_option_value('number', true, { scope = 'local' }),
+  -- vim.api.nvim_set_option_value('relativenumber', true, { scope = 'local' }),
+  vim.api.nvim_set_option_value('termguicolors', true, { scope = 'global' }),
   -- vim.opt.clipboard = 'unnamedplus'
-  -- vim.opt_local.number = true
-  -- vim.opt_local.relativenummber = true
-  -- vim.g.python3_host_prog = vim.fs.joinpatth(vim.fn.stdpath('config'), '.pynvim/bin/python'),
   vim.api.nvim_set_var('python3_host_prog', vim.fs.joinpath(vim.fn.stdpath 'config', '.pynvim/bin/python')),
 
   vim.keymap.set('n', '<space>rf', '<cmd>source %<CR>', { desc = '[R]eload [F]ile' }),
