@@ -10,7 +10,7 @@ return {
   vim.api.nvim_set_option_value('number', true, { scope = 'local' }),
   -- vim.api.nvim_set_option_value('relativenumber', true, { scope = 'local' }),
   vim.api.nvim_set_option_value('termguicolors', true, { scope = 'global' }),
-  -- vim.opt.clipboard = 'unnamedplus'
+  -- vim.api.nvim_set_option_value('clipboard', 'unnamedplus', { scope = 'global' }),
   vim.api.nvim_set_var('python3_host_prog', vim.fs.joinpath(vim.fn.stdpath 'config', '.pynvim/bin/python')),
 
   vim.keymap.set('n', '<space>rf', '<cmd>source %<CR>', { desc = '[R]eload [F]ile' }),
